@@ -9,14 +9,14 @@ from tensorflow.python.keras.callbacks import EarlyStopping, ModelCheckpoint, Te
 
 # Custom library imports
 SCRIPT_DIR = os.path.dirname(__file__)
-sys.path.append(os.path.join(SCRIPT_DIR, 'utils'))
+sys.path.append(os.path.join(SCRIPT_DIR, "../"))
 
-import config as config
-from logger import get_logger
-from mae_callback import MAECallback
-from mae_callback import get_mae
-from model import get_model
-from train_generator import train_generator, plot_imgs_from_generator, validation_generator
+from config import config
+from utils.logger import get_logger
+from mae_callback_tf import MAECallback
+from mae_callback_tf import get_mae
+from model.model_tf import get_model
+from preprocessing.train_generator_tf import train_generator, plot_imgs_from_generator, validation_generator
 
 APP_NAME = 'MODEL_TRAINING'
 LOGGER = get_logger(APP_NAME)

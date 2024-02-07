@@ -3,16 +3,16 @@ import sys
 import cv2
 import dlib
 import numpy as np
-import config as config
 import pandas as pd
 
 from matplotlib import pyplot as plt
 
 # Custom library imports
 SCRIPT_DIR = os.path.dirname(__file__)
-sys.path.append(os.path.join(SCRIPT_DIR, 'utils'))
+sys.path.append(os.path.join(SCRIPT_DIR, "../"))
 
-from logger import get_logger
+from config import config
+from utils.logger import get_logger
 
 APP_NAME = 'CROPPING_PROCESS'
 LOGGER = get_logger(APP_NAME)

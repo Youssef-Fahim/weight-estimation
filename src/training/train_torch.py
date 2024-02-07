@@ -16,12 +16,12 @@ from tempfile import TemporaryDirectory
 
 # Custom library imports
 SCRIPT_DIR = os.path.dirname(__file__)
-sys.path.append(os.path.join(SCRIPT_DIR, 'utils'))
+sys.path.append(os.path.join(SCRIPT_DIR, "../"))
 
-import config as config
-from logger import get_logger
-from dataloader_torch import WeightDataset
-from model_torch import CustomResnet50
+from config import config
+from utils.logger import get_logger
+from preprocessing.dataloader_torch import WeightDataset
+from model.model_torch import CustomResnet50
 
 APP_NAME = 'MODEL_TRAINING'
 LOGGER = get_logger(APP_NAME)

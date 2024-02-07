@@ -1,3 +1,5 @@
+import os
+import sys
 import tensorflow as tf
 
 from keras import backend as K
@@ -7,8 +9,12 @@ from tensorflow.python.keras.layers import Dense
 from tensorflow.keras.layers import Layer
 from tensorflow.keras.layers import Input
 from keras.models import load_model
-import config as config
 
+# Custom library imports
+SCRIPT_DIR = os.path.dirname(__file__)
+sys.path.append(os.path.join(SCRIPT_DIR, "../"))
+
+from config import config
 #K.set_image_data_format('channels_last')
 
 class CustomNN(tf.keras.Model):

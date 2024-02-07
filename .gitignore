@@ -2,6 +2,7 @@
 .vscode/
 
 # Data
+dataset/
 data/
 
 # notebooks checkpoints

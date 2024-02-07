@@ -17,10 +17,10 @@ import torch
 
 # Custom library imports
 SCRIPT_DIR = os.path.dirname(__file__)
-sys.path.append(os.path.join(SCRIPT_DIR, 'utils'))
+sys.path.append(os.path.join(SCRIPT_DIR, "../"))
 
-import config as config
-from logger import get_logger
+from config import config
+from utils.logger import get_logger
 
 APP_NAME = 'DATALOADER_PYTORCH'
 LOGGER = get_logger(APP_NAME)
