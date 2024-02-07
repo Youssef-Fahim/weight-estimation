@@ -3,6 +3,7 @@ import sys
 import time
 import torch
 import torchvision
+import re
 import numpy as np
 import matplotlib.pyplot as plt
 import torch.nn as nn
@@ -61,7 +62,24 @@ class ModelTraining():
                                                    shuffle=False, num_workers=4)
 
         return train_loader, valid_loader
-
+    
+    def extract_best_historic_mae(self):
+        """
+        Extract the best historic MAE
+        Returns:
+            best_mae: best historic MAE
+        """
+        pattern = r'best_model_params_MAE_(\d+\.\d+)_epoch_(\d+).pth'
+        for filename in os.listdir(self.model_weights_dir):
+            match = re.search(pattern, filename)
+            if match:
+                mae = float(match.group(1))
+                if mae < self.best_mae:
+                    self.best_mae = mae
+                    self.best_model_params_path = os.path.join(self.model_weights_dir,
+                                                               filename)
+                    LOGGER.info((f'Best model params with MAE {self.best_mae} '
+                                 f'found at {self.best_model_params_path}'))
 
     def train_model(self, num_epochs=200):
         """
@@ -71,6 +89,10 @@ class ModelTraining():
         Returns:
             model: trained model
         """
+        # Extract the best historic MAE saved in the model weights directory
+        self.extract_best_historic_mae()
+
+        # Start the training
         start = time.time()
 
         for epoch in range(num_epochs):
@@ -90,7 +112,8 @@ class ModelTraining():
                 # Iterate over batches of data
                 for idx, (inputs, labels) in enumerate(self.dataloaders[phase]):
                     if self.verbose:
-                        LOGGER.info(f'Batch {idx+1}/{len(self.dataloaders[phase])} for {phase} phase in epoch num {epoch+1}')
+                        LOGGER.info((f'Batch {idx+1}/{len(self.dataloaders[phase])} '
+                                     f'for {phase} phase in epoch num {epoch+1}'))
                     inputs = inputs.to(config.DEVICE)
                     labels = labels.to(config.DEVICE)
 
